@@ -1,0 +1,11 @@
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+#      PGPASSWORD: "${DB_PASSWORD}"
+      POSTGRES_DB: "${DB_TABLE}"
+      POSTGRES_USER: "${DB_USER}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD}"

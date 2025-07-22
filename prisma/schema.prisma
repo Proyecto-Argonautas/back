@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+  // output   = "../server/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id         Int      @id @default(autoincrement())
+  secret          String?
+  name            String
+  last_name       String?
+  email           String   @unique
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  profile_img     String?
+  Travel          Travel[]
+  resume          Resume?  @relation(fields: [resumeResume_id], references: [resume_id])
+  resumeResume_id Int?
+}
+
+model Travel {
+  travel_id  Int          @id @default(autoincrement())
+  user       User         @relation(fields: [userId], references: [user_id])
+  userId     Int
+  destiny    String
+  start_date DateTime
+  end_date   DateTime
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  Companions Companions[]
+}
+
+model Companions {
+  companions_id Int      @id @default(autoincrement())
+  travel        Travel   @relation(fields: [travelId], references: [travel_id])
+  travelId      Int
+  name          String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+}
+
+model Resume {
+  resume_id  Int      @id @default(autoincrement())
+  component  String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  User       User[]
+  userId     Int      @unique
+}
+
+// model Airport {
+//   airport_id Int    @id @default(autoincrement())
+//   name       String
+// }
+
+// model Flight {
+//   flight_id            Int      @id @default(autoincrement())
+//   resume_id            Int
+//   id_departure_airport String
+//   id_arrival_airport   String
+//   flight_direction     String
+//   date_departure       DateTime
+//   date_arrival         DateTime
+//   airline_data         String
+//   flight_number        String
+//   book_number          BigInt
+//   price                BigInt
+//   currency             String
+// }
+
+// model Accomodation {
+//   accomodation_id Int      @id @default(autoincrement())
+//   name            String
+//   address         String
+//   check_in_date   DateTime
+//   check_out_date  DateTime
+//   book_number     Int
+//   price           Int
+//   currency        Int
+// }
+
+// model Note {
+//   note_id Int    @id @default(autoincrement())
+//   text    String
+// }
