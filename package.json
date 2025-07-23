@@ -5,10 +5,10 @@
     "private": true,
     "scripts": {
         "init": "tsc --init",
-        "dev": "tsx watch src/index.ts",
+        "dev": "tsx watch server/index.ts",
         "build": "tsc",
-        "format": "biome format --write ./src",
-        "check": "biome check --write ./src",
+        "format": "biome format --write server",
+        "check": "biome check --write server",
         "lint": "oxlint",
         "lint:fix": "oxlint --fix",
         "lint:fix-suggestions": "oxlint --fix --fix-suggestions",
@@ -31,6 +31,7 @@
     },
     "dependencies": {
         "@prisma/client": "6.12.0",
+        "@types/cors": "2.8.19",
         "better-auth": "1.3.2",
         "cors": "2.8.5",
         "dotenv": "17.2.0",
