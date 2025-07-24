@@ -12,8 +12,10 @@ export const auth = betterAuth({
   plugins: [
     magicLink({
       sendMagicLink: async ({ email, token, url }, request) => {
-        // send email to user
+        // TODO implementar mandar un correo con nodemailer, mirar ejemplos en yt
+        console.log(email, token, url);
       },
+      disableSignUp: true
     }),
   ],
   socialProviders: {
@@ -22,15 +24,12 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
   },
-  trustedOrigins: [
-    'http://localhost:3000',
-    'http://localhost:5173'
-  ],
+  trustedOrigins: ["http://localhost:3000", "http://localhost:5173"],
   advanced: {
     // para usar cookies cross-domain si tus dominios cambian
     defaultCookieAttributes: {
-      sameSite: 'none',
-      secure: false // true en producción HTTPS
-    }
-  }
+      sameSite: "none",
+      secure: false, // true en producción HTTPS
+    },
+  },
 });
