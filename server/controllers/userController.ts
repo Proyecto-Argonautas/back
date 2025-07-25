@@ -13,15 +13,14 @@ import { UnprocessableEntity } from "../exceptions/validation";
 // ]
 
 export const getUsers = async (req: Request, res: Response) => {
-  try {
-    const users = await prisma.user.findMany();
-    res.status(200).json(users);
-  } catch (error) {
-    res.status(400).json({ message: "Failed to fetch users" });
+  const users = await prisma.user.findMany();
+  if (!users) {
+    new BadRequestException('there arent any users', ErrorCode.USER_NOT_FOUND);
   }
+  res.status(200).json({ data: users.length, users });
 };
 
-export const createUser = async (req: Request, res: Response, next: NextFunction) => {
+export const createUser = async (req: Request, res: Response) => {
   registerSchema.parse(req.body);
   const { name, last_name, email } = req.body;
   let newUser = await prisma.user.findFirst({ where: { email } });

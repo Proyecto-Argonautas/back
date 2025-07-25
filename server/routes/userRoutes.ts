@@ -11,9 +11,7 @@ import { errorHandler } from "../errorHandler";
 
 const router: Router = Router();
 
-router.get("/get", getUsers);
-// router.post('/create', validateData(userRegistrationSchema), createUser);
-// router.post('/register', registerSchema.parse(createUser));
+router.get("/get", errorHandler(getUsers));
 router.post("/register", errorHandler(createUser));
 // router.put("/update/:id", updateUser);
 // router.delete("/delete/:id", deleteUser);
