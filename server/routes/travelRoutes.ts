@@ -1,9 +1,11 @@
 import { Router } from "express";
-import { getTravels, createTravels } from "../controllers/travelController";
+import { getTravels, createTravel, getTravelByTitle } from "../controllers/travelController";
+import { errorHandler } from "../errorHandler";
 
-const router = Router();
+const router: Router = Router();
 
-router.get('/get', getTravels);
-router.post('/create', createTravels);
+router.get("/allTravels", getTravels);
+router.post("/create", errorHandler(createTravel));
+router.get('/get', errorHandler(getTravelByTitle));
 
 export default router;
