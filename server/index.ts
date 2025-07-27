@@ -2,14 +2,17 @@ import cors from "cors";
 import express from "express";
 import "dotenv/config";
 import { toNodeHandler } from "better-auth/node";
-import { PrismaClient } from "./generated/prisma";
+import { errorAleMiddleware } from "./middleware/errors";
+import travelRoutes from "./routes/travelRoutes";
+import userRoutes from "./routes/userRoutes";
 import { auth } from "./utils/auth";
+
+// import userRoutes from './routes/userRoutes';
 
 // ENV
 const port = Number(process.env.PORT) || 3000;
 
 const app = express();
-const prisma = new PrismaClient();
 
 // CORS
 app.use(
@@ -27,14 +30,10 @@ app.all("/api/auth/*splat", toNodeHandler(auth));
 // or only apply it to routes that don't interact with Better Auth
 app.use(express.json());
 
-app.get("/", async (req, res) => {
-  const userCount = await prisma.user.count();
-  res.json(
-    userCount == 0
-      ? "No users have been added yet."
-      : "Some users have been added to the database.",
-  );
-});
+app.use("/user", userRoutes);
+app.use("/travel", travelRoutes);
+
+app.use(errorAleMiddleware);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

@@ -26,6 +26,8 @@ model User {
   image         String?
   sessions      Session[]
   accounts      Account[]
+  travels       Travel[]
+  resume        Resume[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -82,3 +84,68 @@ model Verification {
 }
 
 // * Travel section
+model Travel {
+  travel_id  Int          @id @default(autoincrement())
+  userId     String       @map("user_id")
+  user       User         @relation(fields: [userId], references: [id])
+  destiny    String
+  start_date DateTime
+  end_date   DateTime
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  Companions Companions[]
+}
+
+model Companions {
+  companions_id Int      @id @default(autoincrement())
+  travel        Travel   @relation(fields: [travelId], references: [travel_id])
+  travelId      Int
+  name          String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+}
+
+model Resume {
+  resume_id  Int      @id @default(autoincrement())
+  component  String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User[]
+  userId     Int      @unique
+}
+
+// model Airport {
+//   airport_id Int    @id @default(autoincrement())
+//   name       String
+// }
+
+// model Flight {
+//   flight_id            Int      @id @default(autoincrement())
+//   resume_id            Int
+//   id_departure_airport String
+//   id_arrival_airport   String
+//   flight_direction     String
+//   date_departure       DateTime
+//   date_arrival         DateTime
+//   airline_data         String
+//   flight_number        String
+//   book_number          BigInt
+//   price                BigInt
+//   currency             String
+// }
+
+// model Accomodation {
+//   accomodation_id Int      @id @default(autoincrement())
+//   name            String
+//   address         String
+//   check_in_date   DateTime
+//   check_out_date  DateTime
+//   book_number     Int
+//   price           Int
+//   currency        Int
+// }
+
+// model Note {
+//   note_id Int    @id @default(autoincrement())
+//   text    String
+// }
