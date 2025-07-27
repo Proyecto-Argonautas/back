@@ -5,34 +5,89 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["queryCompiler", "driverAdapters"]
-  // output   = "../server/generated/prisma"
+  provider = "prisma-client-js"
+  output   = "../server/generated/prisma"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
+
+// * User Section
 
 model User {
-  user_id         Int      @id @default(autoincrement())
-  secret          String?
-  name            String
-  last_name       String?
-  email           String   @unique
-  created_at      DateTime @default(now())
-  updated_at      DateTime @updatedAt
-  profile_img     String?
-  Travel          Travel[]
-  resume          Resume?  @relation(fields: [resumeResume_id], references: [resume_id])
-  resumeResume_id Int?
+  id            String    @id @unique
+  name          String
+  lastName      String?
+  email         String    @unique
+  emailVerified Boolean   @map("email_verfied")
+  image         String?
+  sessions      Session[]
+  accounts      Account[]
+  travels       Travel[]
+  resume        Resume[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("user")
 }
 
+model Session {
+  id        String  @id
+  token     String
+  ipAddress String? @map("ip_address")
+  userAgent String? @map("user_agent")
+  userId    String  @map("user_id")
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  expiresAt DateTime @map("expires_at")
+
+  @@unique([token])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String    @map("account_id")
+  providerId            String    @map("provider_id")
+  userId                String    @map("user_id")
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  idToken               String?   @map("id_token")
+  accessToken           String?   @map("acces_token")
+  refreshToken          String?   @map("refresh_token")
+  accessTokenExpiresAt  DateTime? @map("acces_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+  scope                 String?
+  password              String?
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("account")
+}
+
+model Verification {
+  id         String @id
+  identifier String
+  value      String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  expiresAt DateTime @map("expires_at")
+
+  @@map("verification")
+}
+
+// * Travel section
 model Travel {
   travel_id  Int          @id @default(autoincrement())
-  user       User         @relation(fields: [userId], references: [user_id])
-  userId     Int
+  userId     String       @map("user_id")
+  user       User         @relation(fields: [userId], references: [id])
   destiny    String
   start_date DateTime
   end_date   DateTime
@@ -55,7 +110,7 @@ model Resume {
   component  String?
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  User       User[]
+  user       User[]
   userId     Int      @unique
 }
 
