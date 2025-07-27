@@ -15,7 +15,7 @@ export const auth = betterAuth({
         // TODO implementar mandar un correo con nodemailer, mirar ejemplos en yt
         console.log(email, token, url);
       },
-      disableSignUp: true
+      disableSignUp: true,
     }),
   ],
   socialProviders: {
