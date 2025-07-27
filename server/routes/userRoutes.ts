@@ -6,6 +6,7 @@ import {
   //   deleteUser,
 } from "../controllers/userController";
 import { errorHandler } from "../errorHandler";
+
 // import { registerSchema } from "../schemas/userSchemas";
 // import { validateData } from "../middleware/validationMiddleware";
 

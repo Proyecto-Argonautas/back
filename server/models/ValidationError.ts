@@ -1,4 +1,4 @@
-import { z, ZodError } from 'zod/v4';
+import { ZodError, z } from "zod/v4";
 
 export default class ValidationError extends Error {
   constructor(error: ZodError) {

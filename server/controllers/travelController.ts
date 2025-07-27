@@ -1,7 +1,5 @@
-import prisma from "../services/prismaClient";
 import type { Request, Response } from "express";
-
-
+import prisma from "../services/prismaClient";
 
 export const getTravels = async (req: Request, res: Response) => {
   try {
@@ -16,14 +14,14 @@ export const getTravels = async (req: Request, res: Response) => {
 export const getTravelByTitle = async (req: Request, res: Response) => {
   const { destiny } = req.body;
   const travel = await prisma.travel.findFirst({
-    where: { destiny }
-  })
+    where: { destiny },
+  });
   if (travel) {
-    res.status(200).json({ travel })
+    res.status(200).json({ travel });
   } else {
-    res.status(404).json({ message: 'travel not found' })
+    res.status(404).json({ message: "travel not found" });
   }
-}
+};
 
 export const createTravel = async (req: Request, res: Response) => {
   console.log("create travel");
@@ -34,8 +32,8 @@ export const createTravel = async (req: Request, res: Response) => {
       destiny,
       start_date: new Date(start_date),
       end_date: new Date(end_date),
-      userId
-    }
+      userId,
+    },
   });
   res.status(201).json({ message: "user created succesfully", travel });
 };

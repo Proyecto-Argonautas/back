@@ -15,7 +15,7 @@ import { UnprocessableEntity } from "../exceptions/validation";
 export const getUsers = async (req: Request, res: Response) => {
   const users = await prisma.user.findMany();
   if (!users) {
-    new BadRequestException('there arent any users', ErrorCode.USER_NOT_FOUND);
+    new BadRequestException("there arent any users", ErrorCode.USER_NOT_FOUND);
   }
   res.status(200).json({ data: users.length, users });
 };
@@ -25,10 +25,13 @@ export const createUser = async (req: Request, res: Response) => {
   const { name, last_name, email } = req.body;
   let newUser = await prisma.user.findFirst({ where: { email } });
   if (newUser) {
-    new BadRequestException('user already exists', ErrorCode.USER_ALREADY_EXISTS);
+    new BadRequestException(
+      "user already exists",
+      ErrorCode.USER_ALREADY_EXISTS,
+    );
   }
   newUser = await prisma.user.create({
-    data: { name, last_name, email }
+    data: { name, last_name, email },
   });
   res.status(201).json({ message: "user created succesfully", newUser });
 };
