@@ -7,12 +7,12 @@
 generator client {
   provider = "prisma-client-js"
   output   = "../server/generated/prisma"
+  // previewFeatures = ["queryCompiler", "driverAdapters"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DB_URL")
-  // url       = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
 
@@ -86,33 +86,42 @@ model Verification {
 
 // * Travel section
 model Travel {
-  travel_id  Int          @id @default(autoincrement())
+  id         Int          @id @default(autoincrement())
   userId     String       @map("user_id")
   user       User         @relation(fields: [userId], references: [id])
   destiny    String
-  start_date DateTime
-  end_date   DateTime
-  created_at DateTime     @default(now())
-  updated_at DateTime     @updatedAt
-  Companions Companions[]
+  startDate  DateTime     @map("start_date")
+  endDate    DateTime     @map("end_date")
+  companions Companions[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("travel")
 }
 
 model Companions {
-  companions_id Int      @id @default(autoincrement())
-  travel        Travel   @relation(fields: [travelId], references: [travel_id])
-  travelId      Int
-  name          String
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
+  id       Int    @id @default(autoincrement())
+  travel   Travel @relation(fields: [travelId], references: [id])
+  travelId Int
+  name     String
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("companions")
 }
 
 model Resume {
-  resume_id  Int      @id @default(autoincrement())
-  component  String?
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  user       User[]
-  userId     Int      @unique
+  id        Int     @id @default(autoincrement())
+  component String?
+  user      User[]
+  userId    Int     @unique
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("resume")
 }
 
 // model Airport {
