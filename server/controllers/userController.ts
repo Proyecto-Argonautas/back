@@ -1,6 +1,7 @@
 /** biome-ignore-all assist/source/organizeImports: <explanation> */
 import type { NextFunction, Request, Response } from "express";
-import prisma from "../services/prismaClient";
+// import prisma from "../services/prismaClient";
+import { PrismaClient as prisma } from "@prisma/client";
 import { registerSchema } from "../schemas/userSchemas";
 import { BadRequestException } from "../exceptions/badRequest";
 import { ErrorCode } from "../exceptions/root";
