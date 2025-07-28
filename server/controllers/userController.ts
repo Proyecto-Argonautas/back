@@ -6,7 +6,6 @@ import { BadRequestException } from "../exceptions/badRequest";
 import { ErrorCode } from "../exceptions/root";
 import { UnprocessableEntity } from "../exceptions/validation";
 
-// import userService from '../services/userServices';
 
 // let users: { id: number, name: string }[] = [
 //     { id: 1, name: "Jack" }
@@ -62,14 +61,4 @@ export const createUser = async (req: Request, res: Response) => {
 //   } catch (err) {
 //     res.status(400).json({ message: "error deleting user" });
 //   }
-// };
-
-// module.exports.getAllUsers = (req, res, next) => {
-//     const users = userService.fetchUsers();
-//     // res.send('all users')
-// }
-// module.exports.createUser = (req, res, next) => {
-//     const newUser = userService.addUser(req.body);
-//     res.send('creating users')
-//     res.status(201).json(newUser);
 // };
