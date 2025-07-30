@@ -12,7 +12,8 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("DB_URL")
+  // url      = env("DATABASE_URL")
   // directUrl = env("DIRECT_URL")
 }
 
@@ -23,7 +24,7 @@ model User {
   name          String
   lastName      String?
   email         String    @unique
-  emailVerified Boolean   @map("email_verfied")
+  emailVerified Boolean   @map("email_verified")
   image         String?
   sessions      Session[]
   accounts      Account[]

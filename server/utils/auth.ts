@@ -29,7 +29,22 @@ export const auth = betterAuth({
     // para usar cookies cross-domain si tus dominios cambian
     defaultCookieAttributes: {
       sameSite: "none",
-      secure: false, // true en producción HTTPS
+      secure: true, // true en producción HTTPS
+      partitioned: true,
     },
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: "localhost",
+    },
+    useSecureCookies: true,
+    cookies: {
+      sessionToken: {
+        attributes: {
+          sameSite: "none",
+          secure: true,
+          partitioned: true,
+        },
+      },
+    }
   },
 });
