@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../server/generated/prisma"
+  // output   = "../server/generated/prisma"
   // previewFeatures = ["queryCompiler", "driverAdapters"]
 }
 
@@ -19,7 +19,7 @@ datasource db {
 // * User Section
 
 model User {
-  id            String    @id @unique
+  id            String    @id @default(uuid())
   name          String
   lastName      String?
   email         String    @unique

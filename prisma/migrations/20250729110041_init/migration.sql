@@ -1,33 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `Companions` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Resume` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `Travel` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE "Companions" DROP CONSTRAINT "Companions_travelId_fkey";
-
--- DropForeignKey
-ALTER TABLE "Travel" DROP CONSTRAINT "Travel_userId_fkey";
-
--- DropForeignKey
-ALTER TABLE "User" DROP CONSTRAINT "User_resumeResume_id_fkey";
-
--- DropTable
-DROP TABLE "Companions";
-
--- DropTable
-DROP TABLE "Resume";
-
--- DropTable
-DROP TABLE "Travel";
-
--- DropTable
-DROP TABLE "User";
-
 -- CreateTable
 CREATE TABLE "user" (
     "id" TEXT NOT NULL,
@@ -129,9 +99,6 @@ CREATE TABLE "_ResumeToUser" (
 
     CONSTRAINT "_ResumeToUser_AB_pkey" PRIMARY KEY ("A","B")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "user_id_key" ON "user"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");

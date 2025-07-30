@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
-// import prisma from "../services/prismaClient";
-import { PrismaClient as prisma } from "@prisma/client";
+import prisma from "../services/prismaClient";
+// import { PrismaClient as prisma } from "../generated/prisma";
 
 export const getTravels = async (req: Request, res: Response) => {
   try {

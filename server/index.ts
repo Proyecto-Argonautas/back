@@ -33,7 +33,7 @@ app.use(express.json());
 app.use("/user", userRoutes);
 app.use("/travel", travelRoutes);
 
-app.use(errorAleMiddleware);
+// app.use(errorAleMiddleware);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
