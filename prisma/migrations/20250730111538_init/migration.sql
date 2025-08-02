@@ -4,7 +4,7 @@ CREATE TABLE "user" (
     "name" TEXT NOT NULL,
     "lastName" TEXT,
     "email" TEXT NOT NULL,
-    "email_verfied" BOOLEAN NOT NULL,
+    "email_verified" BOOLEAN NOT NULL,
     "image" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,

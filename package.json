@@ -13,8 +13,7 @@
         "lint:fix": "oxlint --fix",
         "lint:fix-suggestions": "oxlint --fix --fix-suggestions",
         "lint:fix-all": "oxlint --fix --fix-suggestions",
-        "postinstall": "prisma generate",
-        "db:generate": "bunx @better-auth/cli@latest generate",
+        "postinstall": "prisma generate --schema=prisma/schema.prisma",
         "db:migrate": "bunx prisma migrateDATABASE_URL",
         "db:deploy": "bunx prisma migrate deploy",
         "db:studio": "bunx prisma studio --port 5555"

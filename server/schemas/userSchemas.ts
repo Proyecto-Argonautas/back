@@ -14,12 +14,9 @@ export const registerSchema = z.object({
 });
 
 export const updateUserSchema = z.object({
-  name: z
-    .string()
-    .optional(),
-  lastName: z
-    .string().optional(),
-})
+  name: z.string().optional(),
+  lastName: z.string().optional(),
+});
 
 export type RegisterUserValues = z.infer<typeof registerSchema>;
 
