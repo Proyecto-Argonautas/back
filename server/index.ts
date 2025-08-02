@@ -2,7 +2,8 @@ import cors from "cors";
 import express from "express";
 import "dotenv/config";
 import { toNodeHandler } from "better-auth/node";
-import { errorAleMiddleware } from "./middleware/errors";
+// import { errorAleMiddleware } from "./middleware/errors";
+import componentRoutes from "./routes/componentRoutes";
 import travelRoutes from "./routes/travelRoutes";
 import userRoutes from "./routes/userRoutes";
 import { auth } from "./utils/auth";
@@ -32,6 +33,7 @@ app.use(express.json());
 
 app.use("/user", userRoutes);
 app.use("/travel", travelRoutes);
+app.use("/components", componentRoutes);
 
 // app.use(errorAleMiddleware);
 
