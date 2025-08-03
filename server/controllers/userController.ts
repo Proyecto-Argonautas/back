@@ -72,7 +72,7 @@ export const registerUser = async (
 
 export const updateUser = async (req: Request, res: Response) => {
   const { name, lastName } = req.body;
-  const userId = "e8681d37-4c1b-4a92-9291-55554a1dd96e"; // ← esto viene del middleware de auth
+  const userId = "fb3357f6-fcb4-4e32-99ee-c143b36d8757"; // ← esto viene del middleware de auth
 
   try {
     const updatedUser = await prisma.user.update({
