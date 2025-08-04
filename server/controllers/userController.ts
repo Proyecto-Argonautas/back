@@ -1,11 +1,9 @@
-/** biome-ignore-all assist/source/organizeImports: <explanation> */
 import type { NextFunction, Request, Response } from "express";
-import prisma from "../services/prismaClient";
-// import { PrismaClient } from "@prisma/client";
-import { registerSchema, updateUserSchema } from "../schemas/userSchemas";
 import { BadRequestException } from "../exceptions/badRequest";
 import { ErrorCode } from "../exceptions/root";
-
+// import { PrismaClient } from "@prisma/client";
+import { registerSchema, updateUserSchema } from "../schemas/userSchemas";
+import prisma from "../services/prismaClient";
 
 export const getUsers = async (req: Request, res: Response) => {
   const users = await prisma.user.findMany();
@@ -29,7 +27,7 @@ export const getUsers = async (req: Request, res: Response) => {
 //   newUser = await prisma.user.create({
 //     data: { name, lastName, email },
 //   });
-//   res.status(201).json({ message: "user created succesfully", newUser });
+//   res.status(201).json({ message: "user created successfully", newUser });
 // };
 
 // nuevo creatinguser
@@ -87,12 +85,13 @@ export const updateUser = async (req: Request, res: Response) => {
       user: updatedUser,
     });
   } catch (error) {
-    return res.status(500).json({ error: "Error updating user" });
+    return res.status(500).json({ error: `Error updating user, ${error}` });
   }
 };
 
 // controllers/userController.ts
 export const deleteUser = async (req: Request, res: Response) => {
+  // TODO añadir typo user en request
   const userId = req.user?.id;
 
   if (!userId) {
@@ -104,7 +103,7 @@ export const deleteUser = async (req: Request, res: Response) => {
       where: { id: userId },
     });
 
-    res.status(204).json({ message: 'usuario eliminado', deleteUser }); // 204 = No Content
+    res.status(204).json({ message: "usuario eliminado", deleteUser }); // 204 = No Content
   } catch (err) {
     console.error("Delete Error:", err);
     res.status(500).json({ error: "No se pudo eliminar el usuario" });
@@ -120,7 +119,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 //       data: { name, last_name, email },
 //     });
 //     res.status(201).json({
-//       message: "user updated succesfully",
+//       message: "user updated successfully",
 //       data: updateUser,
 //     });
 //   } catch (err) {
@@ -135,7 +134,7 @@ export const deleteUser = async (req: Request, res: Response) => {
 //       where: { id: parseInt(id) },
 //     });
 //     res.status(201).json({
-//       message: "user deleted succesfully",
+//       message: "user deleted successfully",
 //     });
 //   } catch (err) {
 //     res.status(400).json({ message: "error deleting user" });

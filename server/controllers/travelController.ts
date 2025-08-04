@@ -26,15 +26,16 @@ export const getTravelByTitle = async (req: Request, res: Response) => {
 
 export const createTravel = async (req: Request, res: Response) => {
   console.log("create travel");
-  const { destiny, start_date, end_date, userId } = req.body;
+  const { destiny, start_date, end_date, user_id } = req.body;
+  console.log(destiny, start_date, end_date, user_id);
   const travel = await prisma.travel.create({
-    // data: ...req.body
     data: {
       destiny,
-      start_date: new Date(start_date),
-      end_date: new Date(end_date),
-      userId,
+      startDate: new Date(start_date),
+      endDate: new Date(end_date),
+      userId: user_id,
     },
   });
-  res.status(201).json({ message: "user created succesfully", travel });
+  res.status(201).json({ message: "user created successfully", travel });
+  // res.status(201).json({ message: "user created successfully" });
 };

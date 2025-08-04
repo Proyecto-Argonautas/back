@@ -103,7 +103,7 @@ CREATE TABLE "public"."Airport" (
 
 -- CreateTable
 CREATE TABLE "public"."Flight" (
-    "flight_id" SERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "resume_id" INTEGER NOT NULL,
     "id_departure_airport" TEXT NOT NULL,
     "id_arrival_airport" TEXT NOT NULL,
@@ -116,12 +116,12 @@ CREATE TABLE "public"."Flight" (
     "price" BIGINT NOT NULL,
     "currency" TEXT NOT NULL,
 
-    CONSTRAINT "Flight_pkey" PRIMARY KEY ("flight_id")
+    CONSTRAINT "Flight_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "public"."Accomodation" (
-    "accomodation_id" SERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "address" TEXT NOT NULL,
     "check_in_date" TIMESTAMP(3) NOT NULL,
@@ -130,15 +130,15 @@ CREATE TABLE "public"."Accomodation" (
     "price" INTEGER NOT NULL,
     "currency" INTEGER NOT NULL,
 
-    CONSTRAINT "Accomodation_pkey" PRIMARY KEY ("accomodation_id")
+    CONSTRAINT "Accomodation_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "public"."Note" (
-    "note_id" SERIAL NOT NULL,
+    "id" SERIAL NOT NULL,
     "text" TEXT NOT NULL,
 
-    CONSTRAINT "Note_pkey" PRIMARY KEY ("note_id")
+    CONSTRAINT "Note_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex

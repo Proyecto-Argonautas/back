@@ -1,8 +1,7 @@
-// oxlint-disable no-unused-vars
+import { PrismaClient } from "@prisma/client";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { magicLink } from "better-auth/plugins";
-import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 export const auth = betterAuth({
@@ -11,7 +10,7 @@ export const auth = betterAuth({
   }),
   plugins: [
     magicLink({
-      sendMagicLink: async ({ email, token, url }, request) => {
+      sendMagicLink: async ({ email, token, url }) => {
         // TODO implementar mandar un correo con nodemailer, mirar ejemplos en yt
         console.log(email, token, url);
       },
@@ -45,6 +44,12 @@ export const auth = betterAuth({
           partitioned: true,
         },
       },
-    }
+    },
+    session: {
+      cookieCache: {
+        enabled: true,
+        maxAge: 5 * 60, // Duración de la cache en segundos (ej. 5 minutos)
+      },
+    },
   },
 });
