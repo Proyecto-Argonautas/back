@@ -10,7 +10,7 @@ import { errorHandler } from "../errorHandler";
 const router: Router = Router();
 
 // TODO entender como funciona los errorHandler
-router.get("/allTravels", getAllTravels);
+router.get("/all", getAllTravels);
 router.post("/create", createTravel);
 // router.get("/get", errorHandler(getTravelByTitle));
 
