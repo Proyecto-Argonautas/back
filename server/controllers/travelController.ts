@@ -107,3 +107,37 @@ export const createTravel = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Error interno del servidor" });
   }
 };
+
+export const getAllTravels = async (req: Request, res: Response) => {
+  try {
+    const travels = await prisma.travel.findMany({
+      include: {
+        companions: true,
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+      orderBy: {
+        startDate: 'asc',
+      },
+    });
+
+    const formattedTravels = travels.map((travel) => ({
+      id: travel.id,
+      destiny: travel.destiny,
+      startDate: travel.startDate,
+      endDate: travel.endDate,
+      user: travel.user,
+      companions: travel.companions.map((c) => c.name),
+    }));
+
+    res.status(200).json(formattedTravels);
+  } catch (error) {
+    console.error("Error al obtener los viajes:", error);
+    res.status(500).json({ error: "Error al obtener los viajes." });
+  }
+};
