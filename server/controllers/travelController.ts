@@ -110,28 +110,32 @@ export const createTravel = async (req: Request, res: Response) => {
 
 export const getAllTravels = async (req: Request, res: Response) => {
   try {
-    const travels = await prisma.travel.findMany({
+    const id = req.params.id;
+    if (!id) {
+      return res.status(400).json({ error: "ID de usuario es requerido" });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { id },
       include: {
-        companions: true,
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
+        travels: {
+          include: {
+            companions: true,
           },
         },
       },
-      orderBy: {
-        startDate: 'asc',
-      },
     });
 
-    const formattedTravels = travels.map((travel) => ({
+    if (!user) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+
+    // Formatear los viajes para incluir solo la información necesaria
+    const formattedTravels = user.travels.map((travel) => ({
       id: travel.id,
       destiny: travel.destiny,
       startDate: travel.startDate,
       endDate: travel.endDate,
-      user: travel.user,
       companions: travel.companions.map((c) => c.name),
     }));
 
@@ -141,3 +145,34 @@ export const getAllTravels = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Error al obtener los viajes." });
   }
 };
+//     const travels = await prisma.travel.findMany({
+//       include: {
+//         companions: true,
+//         user: {
+//           select: {
+//             id: true,
+//             name: true,
+//             email: true,
+//           },
+//         },
+//       },
+//       orderBy: {
+//         startDate: 'asc',
+//       },
+//     });
+
+//     const formattedTravels = travels.map((travel) => ({
+//       id: travel.id,
+//       destiny: travel.destiny,
+//       startDate: travel.startDate,
+//       endDate: travel.endDate,
+//       user: travel.user,
+//       companions: travel.companions.map((c) => c.name),
+//     }));
+
+//     res.status(200).json(formattedTravels);
+//   } catch (error) {
+//     console.error("Error al obtener los viajes:", error);
+//     res.status(500).json({ error: "Error al obtener los viajes." });
+//   }
+// };

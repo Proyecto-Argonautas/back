@@ -18,11 +18,11 @@ const app = express();
 // CORS
 app.use(
   cors(
-    // {
-    //   origin: "http://localhost:5173", // Replace with your frontend's origin
-    //   methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-    //   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-    // }
+    {
+      origin: "http://localhost:5173", // Replace with your frontend's origin
+      methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+      credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    }
   ),
 );
 
