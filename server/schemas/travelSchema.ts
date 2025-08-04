@@ -31,14 +31,7 @@ export const travelSchema = z.object({
     startDate: z.coerce.date(),
     endDate: z.coerce.date(),
     userId: z.string().min(1, "El userId es obligatorio"),
-    companions: z
-        .array(
-            z.object({
-                name: z.string().min(1)
-            })
-        )
-        .max(20, { message: "No puedes agregar más de 20 acompañantes" })
-        .optional()
+    companions: z.array(z.string().min(1)).max(20)
 }).refine(
     (data) => data.endDate > data.startDate,
     { message: "La fecha de fin debe ser posterior a la de inicio", path: ["endDate"] }

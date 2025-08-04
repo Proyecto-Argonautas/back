@@ -90,7 +90,7 @@ export const createTravel = async (req: Request, res: Response) => {
           connect: { id: userId }
         },
         companions: {
-          create: companions?.map((c) => ({ name: c.name })) ?? []
+          create: companions.map((name) => ({ name }))
         }
       },
       include: {
