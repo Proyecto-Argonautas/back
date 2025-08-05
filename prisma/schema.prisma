@@ -127,8 +127,8 @@ model Resume {
 }
 
 model Airport {
-  airport_id Int    @id @default(autoincrement())
-  name       String
+  id        Int    @id @default(autoincrement())
+  name      String
 }
 
 model Flight {

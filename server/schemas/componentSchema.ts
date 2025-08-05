@@ -32,10 +32,10 @@ const currencySchema = z.object({
     date: z.string()
 });
 
-export const resumeSchema = z.object({
-    component: z.enum(['note', 'flight', 'accommodation']),
-    position: z.number().nonnegative(),
-});
+// export const resumeSchema = z.object({
+//     component: z.enum(['note', 'flight', 'accommodation']),
+//     position: z.number().nonnegative(),
+// });
 
 export const createComponentSchema = z.object({
     type: z.enum(["note", "flight", "hotel", "currency"]),
@@ -47,4 +47,10 @@ export const createComponentSchema = z.object({
         hotelSchema,
         currencySchema
     ])
+});
+
+export const resumeSchema = z.object({
+    component: z.enum(['note', 'flight', 'accommodation']),
+    position: z.number().int().nonnegative(),
+    userId: z.string().uuid(),
 });
