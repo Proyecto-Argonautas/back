@@ -49,8 +49,7 @@ export const createComponentSchema = z.object({
     ])
 });
 
-export const resumeSchema = z.object({
-    component: z.enum(['note', 'flight', 'accommodation']),
-    position: z.number().int().nonnegative(),
-    userId: z.string().uuid(),
+export const componentSchema = z.object({
+    type: z.enum(['note', 'flight', 'hotel', 'currency', 'weather', 'translate', 'list']),
+    travelId: z.string()
 });

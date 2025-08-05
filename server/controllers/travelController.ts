@@ -106,6 +106,28 @@ export const deleteTravel = async (req: Request, res: Response) => {
   }
 };
 
+export const deleteTravel2 = async (req: Request, res: Response) => {
+  const travelId = Number(req.params.id);
+
+  if (isNaN(travelId)) {
+    return res.status(400).json({ error: "ID inválido." });
+  }
+
+  try {
+    const deletedTravel = await prisma.travel.delete({
+      where: { id: travelId },
+    });
+
+    return res.status(200).json({
+      message: "Travel eliminado correctamente (y sus datos relacionados en cascade).",
+      deletedTravel,
+    });
+  } catch (error) {
+    console.error("Error al eliminar travel:", error);
+    return res.status(500).json({ error: "Error al eliminar el travel." });
+  }
+};
+
 // `
 // {
 //     latest_edited: travel,

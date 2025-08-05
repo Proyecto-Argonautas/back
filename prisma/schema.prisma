@@ -29,7 +29,6 @@ model User {
   sessions      Session[]
   accounts      Account[]
   travels       Travel[]
-  resume        Resume[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -87,13 +86,14 @@ model Verification {
 
 // * Travel section
 model Travel {
-  id         Int          @id @default(autoincrement())
+  id         String       @id @default(uuid())
   userId     String       @map("user_id")
   user       User         @relation(fields: [userId], references: [id])
   destiny    String
   startDate  DateTime     @map("start_date")
   endDate    DateTime     @map("end_date")
   companions Companions[]
+  components Component[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -102,9 +102,9 @@ model Travel {
 }
 
 model Companions {
-  id       Int    @id @default(autoincrement())
-  travel   Travel @relation(fields: [travelId], references: [id])
-  travelId Int
+  id       String @id @default(uuid())
+  travelId String
+  travel   Travel @relation(fields: [travelId], references: [id], onDelete: Cascade)
   name     String
 
   createdAt DateTime @default(now()) @map("created_at")
@@ -113,51 +113,63 @@ model Companions {
   @@map("companions")
 }
 
-model Resume {
-  id        Int     @id @default(autoincrement())
-  component String?
-  position  Int
-  userId    String  @map("user_id")
-  user      User    @relation(fields: [userId], references: [id])
+model Component {
+  id       String @id @default(uuid())
+  travelId String @map("travel_id")
+  travel   Travel @relation(fields: [travelId], references: [id], onDelete: Cascade)
+  type     String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
+  // Flight    Flight[]
+  // Hotel     Hotel[]
+  // Note      Note[]
 
-  @@map("resume")
+  @@map("component")
 }
 
-model Airport {
-  id        Int    @id @default(autoincrement())
-  name      String
-}
+// model Flight {
+//   id          Int    @id @default(autoincrement())
+//   airline     String
+//   arrivalCity String
 
-model Flight {
-  id                   Int      @id @default(autoincrement())
-  resume_id            Int
-  id_departure_airport String
-  id_arrival_airport   String
-  flight_direction     String
-  date_departure       DateTime
-  date_arrival         DateTime
-  airline_data         String
-  flight_number        String
-  book_number          BigInt
-  price                BigInt
-  currency             String
-}
+//   flight_direction String
+//   date_departure   DateTime
+//   date_arrival     DateTime
+//   airline_data     String
+//   flight_number    String
+//   book_number      BigInt
+//   price            BigInt
+//   currency         String
+//   component        Component @relation(fields: [componentId], references: [id])
+//   componentId      Int       @map("component_id")
 
-model Accomodation {
-  id             Int      @id @default(autoincrement())
-  name           String
-  address        String
-  check_in_date  DateTime
-  check_out_date DateTime
-  book_number    Int
-  price          Int
-  currency       Int
-}
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+// }
 
-model Note {
-  id   Int    @id @default(autoincrement())
-  text String
-}
+// model Hotel {
+//   id             Int       @id @default(autoincrement())
+//   name           String
+//   address        String
+//   check_in_date  DateTime
+//   check_out_date DateTime
+//   book_number    Int
+//   price          Int
+//   currency       Int
+//   component      Component @relation(fields: [componentId], references: [id])
+//   componentId    Int       @map("component_id")
+
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+// }
+
+// model Note {
+//   id          Int       @id @default(autoincrement())
+//   text        String
+//   component   Component @relation(fields: [componentId], references: [id])
+//   componentId Int       @map("component_id")
+
+//   createdAt DateTime @default(now()) @map("created_at")
+//   updatedAt DateTime @updatedAt @map("updated_at")
+// }

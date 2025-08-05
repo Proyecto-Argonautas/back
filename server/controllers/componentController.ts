@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
-import { createComponentSchema, resumeSchema } from "../schemas/componentSchema";
+import { createComponentSchema, componentSchema } from "../schemas/componentSchema";
 import prisma from "../services/prismaClient";
+import { userInfo } from "os";
 
 // export const createResume = async (req: Request, res: Response) => {
 //     try {
@@ -28,14 +29,16 @@ import prisma from "../services/prismaClient";
 
 
 export const createResume = async (req: Request, res: Response) => {
-    try {
-        const parsed = resumeSchema.parse(req.body);
 
-        const newResume = await prisma.resume.create({
+    try {
+        const parsed = componentSchema.parse(req.body);
+        console.log(req.body);
+
+        console.log('prisma.component:', prisma.component);
+        const newResume = await prisma.component.create({
             data: {
-                component: parsed.component,
-                position: parsed.position,
-                userId: parsed.userId,
+                type: parsed.type,
+                travelId: parsed.travelId
             },
         });
 
@@ -49,3 +52,7 @@ export const createResume = async (req: Request, res: Response) => {
         }
     }
 };
+
+// get all except list
+
+// get only list 
