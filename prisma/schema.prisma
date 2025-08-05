@@ -6,7 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../server/generated/prisma"
+  // output   = "../server/generated/prisma"
   // previewFeatures = ["queryCompiler", "driverAdapters"]
 }
 
@@ -93,7 +93,7 @@ model Travel {
   startDate  DateTime     @map("start_date")
   endDate    DateTime     @map("end_date")
   companions Companions[]
-  components Component[]
+  component Component[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

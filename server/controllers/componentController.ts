@@ -35,6 +35,7 @@ export const createResume = async (req: Request, res: Response) => {
         console.log(req.body);
 
         console.log('prisma.component:', prisma.component);
+        console.log(Object.keys(prisma));
         const newResume = await prisma.component.create({
             data: {
                 type: parsed.type,
