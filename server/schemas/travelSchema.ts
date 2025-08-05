@@ -15,5 +15,5 @@ export const travelSchema = z.object({
 );
 
 export const getFilteredTravelsSchema = z.object({
-    userId: z.string().uuid(),
+    userId: z.string().min(1, "El userId es obligatorio"),
 });
