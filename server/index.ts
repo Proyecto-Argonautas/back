@@ -2,7 +2,8 @@ import cors from "cors";
 import express from "express";
 import "dotenv/config";
 import { toNodeHandler } from "better-auth/node";
-import { errorAleMiddleware } from "./middleware/errors";
+// import { errorAleMiddleware } from "./middleware/errors";
+import componentRoutes from "./routes/componentRoutes";
 import travelRoutes from "./routes/travelRoutes";
 import userRoutes from "./routes/userRoutes";
 import { auth } from "./utils/auth";
@@ -16,11 +17,13 @@ const app = express();
 
 // CORS
 app.use(
-  cors({
-    origin: "http://localhost:5173", // Replace with your frontend's origin
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
-    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
-  }),
+  cors(
+    {
+      origin: "http://localhost:5173", // Replace with your frontend's origin
+      methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
+      credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    }
+  ),
 );
 
 // BETTER-AUTH
@@ -32,8 +35,9 @@ app.use(express.json());
 
 app.use("/user", userRoutes);
 app.use("/travel", travelRoutes);
+app.use("/components", componentRoutes);
 
-app.use(errorAleMiddleware);
+// app.use(errorAleMiddleware);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

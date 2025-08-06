@@ -13,36 +13,36 @@
         "lint:fix": "oxlint --fix",
         "lint:fix-suggestions": "oxlint --fix --fix-suggestions",
         "lint:fix-all": "oxlint --fix --fix-suggestions",
-        "db:generate": "bunx @better-auth/cli@latest generate",
-        "db:migrate": "bunx prisma migrate dev",
+        "postinstall": "prisma generate --schema=prisma/schema.prisma",
+        "db:migrate": "bunx prisma migrateDATABASE_URL",
         "db:deploy": "bunx prisma migrate deploy",
         "db:studio": "bunx prisma studio --port 5555"
     },
     "devDependencies": {
-        "@biomejs/biome": "2.1.2",
+        "@biomejs/biome": "2.1.3",
         "@types/bun": "1.2.19",
         "@types/cors": "2.8.19",
         "@types/express": "5.0.3",
-        "@types/pg": "8.15.4",
+        "@types/pg": "8.15.5",
         "nodemon": "3.1.10",
-        "oxlint": "1.8.0",
+        "oxlint": "1.9.0",
+        "prisma": "^6.13.0",
         "ts-node": "10.9.2",
         "tsx": "4.20.3",
-        "typescript": "5.8.3"
+        "typescript": "5.9.2"
     },
     "peerDependencies": {
-        "typescript": "5.8.3"
+        "typescript": "5.9.2"
     },
     "dependencies": {
-        "@prisma/adapter-pg": "6.12.0",
-        "@prisma/client": "6.12.0",
+        "@prisma/adapter-pg": "6.13.0",
+        "@prisma/client": "^6.13.0",
         "better-auth": "1.3.4",
         "body-parser": "2.2.0",
         "cors": "2.8.5",
         "dotenv": "17.2.1",
         "express": "5.1.0",
         "pg": "8.16.3",
-        "prisma": "6.12.0",
-        "zod": "4.0.10"
+        "zod": "4.0.14"
     }
 }
