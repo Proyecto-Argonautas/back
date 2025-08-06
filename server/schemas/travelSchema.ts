@@ -9,9 +9,6 @@ export const travelSchema = z.object({
 }).refine(
     (data) => data.endDate > data.startDate,
     { message: "La fecha de fin debe ser posterior a la de inicio", path: ["endDate"] }
-).refine(
-    (data) => data.startDate >= new Date(),
-    { message: "La fecha de inicio no puede ser en el pasado", path: ["startDate"] }
 );
 
 export const getFilteredTravelsSchema = z.object({
