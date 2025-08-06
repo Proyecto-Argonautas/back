@@ -2,7 +2,6 @@ import { Router } from "express";
 import {
   createTravel,
   getAllTravels,
-  getTravels,
   getFilteredTravels
 } from "../controllers/travelController";
 import { errorHandler } from "../errorHandler";
