@@ -4,15 +4,12 @@ import * as https from "https";
 
 import {
   deleteUser,
-  // createUser,
-  getUsers,
+  // getUsers,
   registerUser,
   updateUser,
 } from "../controllers/userController";
-import { errorHandler } from "../errorHandler";
+// import { errorHandler } from "../errorHandler";
 
-// import { registerSchema } from "../schemas/userSchemas";
-// import { validateData } from "../middleware/validationMiddleware";
 
 const router: Router = Router();
 
@@ -45,7 +42,7 @@ router.get("/proxy-image", (req, res) => {
   }
 });
 
-router.get("/get", errorHandler(getUsers));
+// router.get("/get", errorHandler(getUsers));
 router.post("/register", registerUser);
 router.patch("/update", updateUser);
 // router.delete("/delete", deleteUser);
