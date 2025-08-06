@@ -1,7 +1,7 @@
 // message, status code, error codes, error
 
 export class HttpException extends Error {
-  message: string;
+  override message: string;
   errorCode: any;
   statusCode: number;
   errors: ErrorCode;
