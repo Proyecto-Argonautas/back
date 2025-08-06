@@ -89,7 +89,6 @@ export const updateUser = async (req: Request, res: Response) => {
   }
 };
 
-// controllers/userController.ts
 export const deleteUser = async (req: Request, res: Response) => {
   // TODO añadir typo user en request
   const userId = req.user?.id;
@@ -109,34 +108,3 @@ export const deleteUser = async (req: Request, res: Response) => {
     res.status(500).json({ error: "No se pudo eliminar el usuario" });
   }
 };
-
-// export const updateUser = async (req: Request, res: Response) => {
-//   const { id } = req.params;
-
-//   try {
-//     const updateUser = await prisma.user.update({
-//       where: { id: parseInt(id) },
-//       data: { name, last_name, email },
-//     });
-//     res.status(201).json({
-//       message: "user updated successfully",
-//       data: updateUser,
-//     });
-//   } catch (err) {
-//     res.status(400).json({ message: "error updating user" });
-//   }
-// };
-
-// export const deleteUser = async (req: Request, res: Response) => {
-//   const { id } = req.params;
-//   try {
-//     await prisma.user.delete({
-//       where: { id: parseInt(id) },
-//     });
-//     res.status(201).json({
-//       message: "user deleted successfully",
-//     });
-//   } catch (err) {
-//     res.status(400).json({ message: "error deleting user" });
-//   }
-// };

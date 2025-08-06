@@ -2,15 +2,6 @@ import type { Request, Response } from "express";
 import prisma from "../services/prismaClient";
 import { travelSchema, getFilteredTravelsSchema } from "../schemas/travelSchema";
 
-export const getTravels = async (req: Request, res: Response) => {
-  try {
-    const travels = await prisma.travel.findMany();
-    res.status(200).json(travels);
-  } catch (err: any) {
-    console.log(err);
-    res.status(400).json({ message: "Failed to fetch travels" });
-  }
-};
 // "fb3357f6-fcb4-4e32-99ee-c143b36d8757"
 
 export const createTravel = async (req: Request, res: Response) => {
@@ -85,31 +76,9 @@ export const getAllTravels = async (req: Request, res: Response) => {
 };
 
 export const deleteTravel = async (req: Request, res: Response) => {
-  const { userId, travelId } = req.params;
-  try {
-    // Verifica que el travel pertenece al usuario
-    const travel = await prisma.travel.findUnique({
-      where: { id: Number(travelId) },
-    });
+  const travelId = req.params.id;
 
-    if (!travel || travel.userId !== userId) {
-      return res.status(404).json({ error: "Travel no encontrado para el usuario." });
-    }
-
-    await prisma.travel.delete({
-      where: { id: Number(travelId) },
-    });
-
-    res.status(200).json({ message: "Travel eliminado correctamente." });
-  } catch (error) {
-    res.status(500).json({ error: "Error al eliminar el travel." });
-  }
-};
-
-export const deleteTravel2 = async (req: Request, res: Response) => {
-  const travelId = Number(req.params.id);
-
-  if (isNaN(travelId)) {
+  if (travelId) {
     return res.status(400).json({ error: "ID inválido." });
   }
 
@@ -127,14 +96,6 @@ export const deleteTravel2 = async (req: Request, res: Response) => {
     return res.status(500).json({ error: "Error al eliminar el travel." });
   }
 };
-
-// `
-// {
-//     latest_edited: travel,
-//     nexts_travels: [travels <- viejes que son posteriores a la fecha actual comparar con startdate y ordenarlos por el mismo de mas cercano a mas lejano]
-//     previus_travels: [travels <- viajes que son anteriores a la fecha actual comparar con endDate y ordenados por la misma de mas cercano a mas lejano]
-// }
-// `
 
 
 export const getFilteredTravels = async (req: Request, res: Response) => {

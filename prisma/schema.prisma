@@ -88,7 +88,7 @@ model Verification {
 model Travel {
   id         String       @id @default(uuid())
   userId     String       @map("user_id")
-  user       User         @relation(fields: [userId], references: [id])
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   destiny    String
   startDate  DateTime     @map("start_date")
   endDate    DateTime     @map("end_date")
