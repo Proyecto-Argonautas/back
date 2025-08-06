@@ -1,7 +1,12 @@
 import { PrismaClient } from "@prisma/client";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { magicLink } from "better-auth/plugins";
+import { magicLink, openAPI } from "better-auth/plugins";
+
+const FRONT_URL = process.env.FRONT_URL || "http://localhost:5173"
+const BETTER_AUTH_URL = process.env.FRONT_URL || "http://localhost:5173"
+const BETTER_AUTH_COOKIE_DOMAIN = process.env.BETTER_AUTH_COOKIE_DOMAIN || "localhost";
+
 
 const prisma = new PrismaClient();
 export const auth = betterAuth({
@@ -16,6 +21,7 @@ export const auth = betterAuth({
       },
       disableSignUp: true,
     }),
+    openAPI(),
   ],
   socialProviders: {
     google: {
@@ -23,7 +29,7 @@ export const auth = betterAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
     },
   },
-  trustedOrigins: ["http://localhost:3000", "http://localhost:5173"],
+  trustedOrigins: [FRONT_URL, BETTER_AUTH_URL],
   advanced: {
     // para usar cookies cross-domain si tus dominios cambian
     defaultCookieAttributes: {
@@ -33,7 +39,7 @@ export const auth = betterAuth({
     },
     crossSubDomainCookies: {
       enabled: true,
-      domain: "localhost",
+      domain: BETTER_AUTH_COOKIE_DOMAIN,
     },
     useSecureCookies: true,
     cookies: {
