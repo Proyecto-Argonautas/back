@@ -10,9 +10,9 @@
     "rootDir": "server",
 
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
     "verbatimModuleSyntax": true,
-    "noEmit": true,
+    "allowImportingTsExtensions": false,
+    "noEmit": false,
 
     "strict": true,
     "skipLibCheck": true,
