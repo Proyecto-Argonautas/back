@@ -91,7 +91,8 @@ export const updateUser = async (req: Request, res: Response) => {
 
 export const deleteUser = async (req: Request, res: Response) => {
   // TODO añadir typo user en request
-  const userId = req.user?.id;
+  // const userId = req.user?.id;
+  const { userId } = req.body;
 
   if (!userId) {
     return res.status(401).json({ message: "No autorizado" });
