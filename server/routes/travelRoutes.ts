@@ -4,7 +4,7 @@ import {
   getAllTravels,
   getFilteredTravels
 } from "../controllers/travelController";
-import { errorHandler } from "../errorHandler";
+// import { errorHandler } from "../errorHandler";
 
 const router: Router = Router();
 
