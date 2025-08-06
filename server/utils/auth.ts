@@ -3,10 +3,10 @@ import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import { magicLink, openAPI } from "better-auth/plugins";
 
-const FRONT_URL = process.env.FRONT_URL || "http://localhost:5173"
-const BETTER_AUTH_URL = process.env.FRONT_URL || "http://localhost:5173"
-const BETTER_AUTH_COOKIE_DOMAIN = process.env.BETTER_AUTH_COOKIE_DOMAIN || "localhost";
-
+const FRONT_URL = process.env.FRONT_URL || "http://localhost:5173";
+const BETTER_AUTH_URL = process.env.FRONT_URL || "http://localhost:5173";
+const BETTER_AUTH_COOKIE_DOMAIN =
+  process.env.BETTER_AUTH_COOKIE_DOMAIN || "localhost";
 
 const prisma = new PrismaClient();
 export const auth = betterAuth({
@@ -56,6 +56,11 @@ export const auth = betterAuth({
         enabled: true,
         maxAge: 5 * 60, // Duración de la cache en segundos (ej. 5 minutos)
       },
+    },
+  },
+  user: {
+    deleteUser: {
+      enabled: true,
     },
   },
 });
