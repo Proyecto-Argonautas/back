@@ -12,6 +12,5 @@ const router: Router = Router();
 router.get("/all/:id", getAllTravels);
 router.get("/all/filtered/:userId", getFilteredTravels);
 router.post("/create", createTravel);
-// router.get("/get", errorHandler(getTravelByTitle));
 
 export default router;

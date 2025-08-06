@@ -48,6 +48,7 @@ router.get("/proxy-image", (req, res) => {
 router.get("/get", errorHandler(getUsers));
 router.post("/register", registerUser);
 router.patch("/update", updateUser);
-router.delete("/delete", deleteUser);
+// router.delete("/delete", deleteUser);
+router.delete("/delete/:id", deleteUser);
 
 export default router;
