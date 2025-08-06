@@ -11,7 +11,8 @@ import { auth } from "./utils/auth";
 // import userRoutes from './routes/userRoutes';
 
 // ENV
-const port = Number(process.env.PORT) || 3000;
+const BACK_PORT = Number(process.env.BACK_PORT) || 3000;
+const FRONT_URL = process.env.FRONT_URL || "http://localhost:5173"
 
 const app = express();
 
@@ -19,7 +20,7 @@ const app = express();
 app.use(
   cors(
     {
-      origin: "http://localhost:5173", // Replace with your frontend's origin
+      origin: FRONT_URL, // Replace with your frontend's origin
       methods: ["GET", "POST", "PUT", "DELETE"], // Specify allowed HTTP methods
       credentials: true, // Allow credentials (cookies, authorization headers, etc.)
     }
@@ -39,6 +40,6 @@ app.use("/components", componentRoutes);
 
 // app.use(errorAleMiddleware);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app.listen(BACK_PORT, () => {
+  console.log(`Example app listening on BACK_PORT ${BACK_PORT}`);
 });
