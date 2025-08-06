@@ -1,17 +1,20 @@
 import type { NextFunction, Request, Response } from "express";
-import { BadRequestException } from "../exceptions/badRequest";
-import { ErrorCode } from "../exceptions/root";
+// import { BadRequestException } from "../exceptions/badRequest";
+// import { ErrorCode } from "../exceptions/root";
 // import { PrismaClient } from "@prisma/client";
-import { registerSchema, updateUserSchema } from "../schemas/userSchemas";
+import {
+  registerSchema,
+  // updateUserSchema
+} from "../schemas/userSchemas";
 import prisma from "../services/prismaClient";
 
-export const getUsers = async (req: Request, res: Response) => {
-  const users = await prisma.user.findMany();
-  if (!users) {
-    new BadRequestException("there arent any users", ErrorCode.USER_NOT_FOUND);
-  }
-  res.status(200).json({ data: users.length, users });
-};
+// export const getUsers = async (req: Request, res: Response) => {
+//   const users = await prisma.user.findMany();
+//   if (!users) {
+//     new BadRequestException("there arent any users", ErrorCode.USER_NOT_FOUND);
+//   }
+//   res.status(200).json({ data: users.length, users });
+// };
 
 // export const createUser = async (req: Request, res: Response) => {
 //   registerSchema.parse(req.body);
